@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efeito Smoke Interativo</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .smoke-container {
+            display: flex;
+            cursor: pointer;
+        }
+
+        .smoke-container span {
+            color: #fff;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 8rem;
+            font-weight: bold;
+            letter-spacing: 10px;
+            display: inline-block;
+            /* Transição para quando o mouse SAI (volta ao normal) */
+            transition: 0.8s ease-in-out;
+        }
+
+        /* Classe de dissipação */
+        .disperse {
+            transform: translate(100px, -150px) scale(2) rotate(45deg);
+            opacity: 0;
+            filter: blur(25px);
+            /* Transição para quando o mouse ENTRA (vira fumaça) */
+            transition: 2s cubic-bezier(0.42, 0, 0.58, 1);
+        }
+
+        /* Delays sequenciais para o efeito cascata (S -> E) */
+        .smoke-container span:nth-child(1) { transition-delay: 0.0s; }
+        .smoke-container span:nth-child(2) { transition-delay: 0.1s; }
+        .smoke-container span:nth-child(3) { transition-delay: 0.2s; }
+        .smoke-container span:nth-child(4) { transition-delay: 0.3s; }
+        .smoke-container span:nth-child(5) { transition-delay: 0.4s; }
+
+    </style>
+</head>
+<body>
+
+    <div class="smoke-container" onmouseover="startSmoke()" onmouseleave="stopSmoke()">
+        <span>S</span>
+        <span>M</span>
+        <span>O</span>
+        <span>K</span>
+        <span>Y</span>
+    </div>
+
+    <script>
+        const spans = document.querySelectorAll('.smoke-container span');
+
+        function startSmoke() {
+            spans.forEach(span => {
+                span.classList.add('disperse');
+            });
+        }
+
+        function stopSmoke() {
+            spans.forEach(span => {
+                span.classList.remove('disperse');
+            });
+        }
+    </script>
+
+</body>
+</html>
